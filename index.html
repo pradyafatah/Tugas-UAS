@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>Library Management System</header>
+    <div class="container">
+        <div class="input-group">
+            <label for="book-title">Book Title:</label>
+            <input type="text" id="book-title" placeholder="Enter book title">
+        </div>
+        <div class="input-group">
+            <label for="book-author">Author:</label>
+            <input type="text" id="book-author" placeholder="Enter author name">
+        </div>
+        <button id="add-book">Add Book</button>
+        <div class="message" id="message-box" style="display: none;"></div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="book-list">
+                <!-- Book entries will appear here -->
+            </tbody>
+        </table>
+    </div>
+    <footer>&copy; 2024 Library System</footer>
+    <script>
+        const bookList = document.getElementById('book-list');
+        const messageBox = document.getElementById('message-box');
+
+        document.getElementById('add-book').addEventListener('click', () => {
+            const title = document.getElementById('book-title').value.trim();
+            const author = document.getElementById('book-author').value.trim();
+
+            if (!title || !author) {
+                showMessage('Both title and author are required.', 'error');
+                return;
+            }
+
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${bookList.children.length + 1}</td>
+                             <td>${title}</td>
+                             <td>${author}</td>
+                             <td>Tersedia</td>`;
+            bookList.appendChild(row);
+
+            showMessage('Book added successfully.', 'success');
+            document.getElementById('book-title').value = '';
+            document.getElementById('book-author').value = '';
+        });
+
+        function showMessage(message, type) {
+            messageBox.style.display = 'block';
+            messageBox.textContent = message;
+            messageBox.style.backgroundColor = type === 'success' ? '#e3f2fd' : '#fdecea';
+            messageBox.style.color = type === 'success' ? '#1e88e5' : '#e53935';
+        }
+    </script>
+</body>
+</html>
